@@ -2,18 +2,19 @@ from __future__ import annotations
 
 import json
 
-from pathlib import Path
-
 import pandas as pd
 import streamlit as st
 from joblib import load
 from sklearn.metrics import classification_report, confusion_matrix
 
+from config import (
+    APP_DESCRIPTION,
+    APP_PAGE_TITLE,
+    APP_TITLE,
+    METRIC_COLUMNS,
+    MODEL_DIR,
+)
 from metrics_utils import calculate_metrics
-
-
-MODEL_DIR = Path(__file__).parent / "model"
-METRIC_COLUMNS = ["Accuracy", "AUC", "Precision", "Recall", "F1", "MCC"]
 
 
 @st.cache_resource
@@ -22,12 +23,9 @@ def load_model(model_path: str):
 
 
 def main() -> None:
-    st.set_page_config(page_title="Classifier comparison")
-    st.title("Classification Model Comparison")
-    st.write(
-        "Upload a labeled test CSV to evaluate the five saved classifiers. "
-        "The app loads trained models and does not retrain on uploaded data."
-    )
+    st.set_page_config(page_title=APP_PAGE_TITLE)
+    st.title(APP_TITLE)
+    st.write(APP_DESCRIPTION)
 
     metadata_path = MODEL_DIR / "metadata.json"
     if not metadata_path.is_file():

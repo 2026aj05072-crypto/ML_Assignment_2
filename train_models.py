@@ -9,18 +9,14 @@ from joblib import dump
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
-from metrics_utils import build_preprocessor, calculate_metrics, create_classifiers
-
-
-STEEL_FAULT_CLASSES = (
-    "Pastry",
-    "Z_Scratch",
-    "K_Scatch",
-    "Stains",
-    "Dirtiness",
-    "Bumps",
-    "Other_Faults",
+from config import (
+    COLUMN_NAMES_PATH,
+    DATASET_PATH,
+    MODEL_DIR,
+    STEEL_FAULT_CLASSES,
+    TEST_DATA_PATH,
 )
+from metrics_utils import build_preprocessor, calculate_metrics, create_classifiers
 
 
 def parse_args() -> argparse.Namespace:
@@ -30,7 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--data",
         type=Path,
-        default=Path("Dataset/Faults.NNA"),
+        default=DATASET_PATH,
         help="Dataset file (defaults to Dataset/Faults.NNA).",
     )
     parser.add_argument(
@@ -40,13 +36,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--columns",
         type=Path,
-        default=Path("Dataset/Faults27x7_var"),
+        default=COLUMN_NAMES_PATH,
         help="Column names for the whitespace-delimited Faults.NNA file.",
     )
     parser.add_argument("--test-size", type=float, default=0.2)
     parser.add_argument("--random-state", type=int, default=42)
-    parser.add_argument("--model-dir", type=Path, default=Path("model"))
-    parser.add_argument("--test-output", type=Path, default=Path("test_data.csv"))
+    parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
+    parser.add_argument("--test-output", type=Path, default=TEST_DATA_PATH)
     return parser.parse_args()
 
 
