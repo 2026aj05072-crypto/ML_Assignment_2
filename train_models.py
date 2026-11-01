@@ -177,6 +177,11 @@ def main() -> None:
             if args.data.suffix.lower() == ".nna"
             else args.data.stem
         ),
+        "dataset_rows": len(features),
+        "class_distribution": [
+            {"class": str(class_name), "count": int(count)}
+            for class_name, count in target.value_counts().sort_index().items()
+        ],
         "target_column": target.name,
         "target_classes": sorted(target.unique().tolist()),
         "feature_columns": features.columns.tolist(),
