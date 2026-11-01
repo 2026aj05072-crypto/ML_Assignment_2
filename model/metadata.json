@@ -1,5 +1,36 @@
 {
   "dataset_name": "Steel Plates Faults",
+  "dataset_rows": 1941,
+  "class_distribution": [
+    {
+      "class": "Bumps",
+      "count": 402
+    },
+    {
+      "class": "Dirtiness",
+      "count": 55
+    },
+    {
+      "class": "K_Scatch",
+      "count": 391
+    },
+    {
+      "class": "Other_Faults",
+      "count": 673
+    },
+    {
+      "class": "Pastry",
+      "count": 158
+    },
+    {
+      "class": "Stains",
+      "count": 72
+    },
+    {
+      "class": "Z_Scratch",
+      "count": 190
+    }
+  ],
   "target_column": "FaultType",
   "target_classes": [
     "Bumps",

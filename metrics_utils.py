@@ -111,14 +111,28 @@ def calculate_metrics(
     }
 
     probabilities = estimator.predict_proba(features)
-    if len(classes) == 2:
-        positive_target = (np.asarray(target) == classes[1]).astype(int)
-        metrics["AUC"] = roc_auc_score(positive_target, probabilities[:, 1])
+    observed_mask = np.isin(classes, target.unique())
+    observed_classes = classes[observed_mask]
+    observed_probabilities = probabilities[:, observed_mask]
+    probability_totals = observed_probabilities.sum(axis=1, keepdims=True)
+    observed_probabilities = np.divide(
+        observed_probabilities,
+        probability_totals,
+        out=np.full_like(
+            observed_probabilities, 1 / len(observed_classes), dtype=float
+        ),
+        where=probability_totals > 0,
+    )
+    if len(observed_classes) == 2:
+        positive_target = (np.asarray(target) == observed_classes[1]).astype(int)
+        metrics["AUC"] = roc_auc_score(
+            positive_target, observed_probabilities[:, 1]
+        )
     else:
         metrics["AUC"] = roc_auc_score(
             target,
-            probabilities,
-            labels=classes,
+            observed_probabilities,
+            labels=observed_classes,
             multi_class="ovr",
             average="weighted",
         )

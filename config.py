@@ -18,10 +18,11 @@ STEEL_FAULT_CLASSES = (
     "Other_Faults",
 )
 
-APP_PAGE_TITLE = "Classifier comparison"
-APP_TITLE = "Classification Model Comparison"
+APP_PAGE_TITLE = "Steel plate fault classifier"
+APP_TITLE = "Steel plate fault classification"
 APP_DESCRIPTION = (
-    "Upload a labeled test CSV to evaluate the five saved classifiers. "
-    "The app loads trained models and does not retrain on uploaded data."
+    "Explore the dataset and compare five trained classifiers using your labeled "
+    "test data. Models are loaded from saved artifacts; uploaded data is never "
+    "used for training."
 )
 METRIC_COLUMNS = ["Accuracy", "AUC", "Precision", "Recall", "F1", "MCC"]
